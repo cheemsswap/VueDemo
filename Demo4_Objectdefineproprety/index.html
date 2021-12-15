@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>objectdefineproprety</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    let student = {
+        name: "hahah",
+        sex: "男"
+    }
+    Object.defineProperty(student, "address", {
+        // value: "南通",
+        enumerable: true, //该属性可被显示枚举 默认为false
+        configurable: true, //该属性可被删除 默认为false
+        // writable: true, //该属性可被修改值 默认为false
+        get() { //注意不能和 value 和 writable 一起使用
+            console.log("获取的时候会输出")
+            return "南通"
+        },
+        set() {
+            console.log("设置参数的时候会输出")
+            return "南通"
+        }
+    })
+
+    // delete student.address
+    // console.log(Object.keys(student))
+    student.address = "上海"
+    console.log(student.address)
+    //console.log(student)
+
+
+</script>
+
+</html>
