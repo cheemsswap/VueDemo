@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>objectdefineproprety</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    let address = "南通"
+    let p = {
+        name: "haha",
+        sex: "男"
+    }
+    Object.defineProperty(p, "address", {
+        set(a) {
+            address = a
+        },
+        get() {
+            return address
+        }
+    })
+
+    console.log(p.address + "@" + address)
+    p.address = "上海"
+    console.log(p.address + "@" + address)
+    address = '北京'
+    console.log(p.address + "@" + address)
+
+</script>
+
+</html>
