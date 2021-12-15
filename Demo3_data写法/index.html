@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue data写法</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        {{text}}
+    </div>
+
+    <div id="root2">
+        {{text}}
+    </div>
+
+    <div id="root3">
+        {{text}}
+    </div>
+
+    <div id="root4">
+        {{text}}
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            text: "hello vue"
+        }
+    })
+    new Vue({
+        el: "#root2",
+        data() {
+            return {
+                text: "hello vue"
+            }
+        }
+    })
+    new Vue({
+        el: "#root3",
+        data: function () {
+            return {
+                text: "hello vue"
+            }
+        }
+    })
+    new Vue({
+        el: "#root4",
+        data: () => {
+            return {
+                text: "hello vue"
+            }
+        }
+    })
+</script>
+
+</html>
