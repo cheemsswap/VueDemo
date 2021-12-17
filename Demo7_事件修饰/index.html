@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件修饰</title>
+    <style>
+        .box1 {
+            width: 100%;
+            margin-top: 10px;
+            height: 100px;
+            background-color: antiquewhite;
+        }
+
+        .box2 {
+            width: 100%;
+            height: 50px;
+            background-color: aqua;
+        }
+
+        .box3 {
+            width: 100%;
+            height: 100px;
+            background-color: aqua;
+            overflow: scroll;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>阻止默认事件</h1>
+        <form action="http://baidu.com" method="get">
+            <input v-on:click.prevent="fun" type="submit" value="提交">
+        </form>
+
+        <h1>阻止冒泡事件</h1>
+        <div @click="fun" class="box1">
+            <button v-on:click.stop="fun">点我</button>
+        </div>
+
+
+        <h1>捕获到优先执行</h1>
+        <div @click="fun3" class="box1">
+            <div @click.capture="fun2" class="box2">
+                <button v-on:click="fun1">点我</button>
+            </div>
+        </div>
+
+        <h1>仅本身才触发</h1>
+        <div @click.self="fun3" class="box1">
+            <div @click.self="fun2" class="box2">
+                <button v-on:click.self="fun1">点我</button>
+            </div>
+        </div>
+
+        <h1>仅触发一次</h1>
+        <button v-on:click.once="fun">点我</button>
+
+
+        <h1>异步完成回调函数 优先执行默认行为</h1>
+        <div @wheel="fun4" class="box3">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+            <p>7</p>
+            <p>8</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+        </div>
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        methods: {
+            fun() {
+                alert(event)
+            },
+            fun1() {
+                alert("内部");
+            },
+            fun2() {
+                alert("中部");
+            },
+            fun3() {
+                alert("外部");
+            },
+            fun4() {
+                for (let i = 0; i < 1000; i++)
+                    console.log(1);
+                console.log("完成！");
+            }
+        }
+    })
+</script>
+
+</html>
