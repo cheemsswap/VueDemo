@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class类的使用</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+        }
+
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+        }
+
+        .box3 {
+            width: 100px;
+            height: 100px;
+            background-color: brown;
+        }
+
+        .box4 {
+            width: 100px;
+            height: 100px;
+            background-color: brown;
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+    <div id="root">
+        <div :class="a"></div>
+        <hr>
+        <div :class="b"></div> <br>
+        <button @click="fun1">点击随机切换颜色</button>
+        <hr>
+        <div class="box4" :class="c"></div>
+        <button @click="fun2">类似classList.toggle</button>
+        <hr>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            a: "box1",
+            b: "box1",
+            c: {
+                active: false
+            },
+        },
+        methods: {
+            fun1() {
+                const arr = ['box1', 'box2', 'box3'];
+                this.b = arr[Math.floor(Math.random() * 3)]
+            },
+            fun2() {
+                this.c.active = !this.c.active;
+            }
+        }
+    })
+</script>
+
+</html>
