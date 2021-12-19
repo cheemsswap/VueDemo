@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue计算属性</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" name="" id="" v-model:value="firstName" /> <br>
+        <input type="text" name="" id="" v-model:value="lastName" /><br>
+        <span>{{sum}}</span><br>
+    </div>
+
+    <div id="root2">
+        <input type="text" name="" id="" v-model:value="firstName" /> <br>
+        <input type="text" name="" id="" v-model:value="lastName" /><br>
+        <span>{{text}}</span><br>
+    </div>
+</body>
+<script>
+    let vm1 = new Vue({
+        el: "#root",
+        data() {
+            return {
+                firstName: "张",
+                lastName: "三"
+            }
+        },
+        computed: {
+            sum() {
+                return this.firstName + '-' + this.lastName;
+            }
+        }
+    })
+
+    let vm2 = new Vue({
+        el: "#root2",
+        data() {
+            return {
+                firstName: "张",
+                lastName: "三",
+                text: "张-三"
+            }
+        },
+        watch: {
+            firstName(value) {
+                //可以添加异步 
+                setTimeout(() => {
+                    this.text = value + '-' + this.lastName;
+                }, 1000)
+            },
+            lastName(value) {
+                this.text = this.firstName + '-' + value;
+            }
+        }
+    })
+</script>
+
+</html>

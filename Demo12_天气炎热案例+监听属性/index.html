@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气炎热案例2</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气很{{text}}</h2>
+        <button v-on:click="fun">切换</button>
+        <hr>
+        <h3>numbers里面的a的值：{{numbers.a}}</h3>
+        <button @click="numbers.a++">点击我让a++</button>
+        <h3>numbers里面的b的值：{{numbers.b}}</h3>
+        <button @click="numbers.b++">点击我让b++</button>
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            isHot: true,
+            numbers: {
+                a: 1,
+                b: 1
+            }
+        },
+        methods: {
+            fun() {
+                this.isHot = !this.isHot
+            }
+        },
+        computed: {
+            text() {
+                return this.isHot ? "炎热" : "凉爽"
+            }
+        },
+        watch: {
+            //isHot 完整写法
+            // isHot: {
+            //     immediate: true,//初始化的时候调用一下
+            //     handler(newword, oldword) {
+            //         console.log(newword, oldword);
+            //     }
+            // },
+            isHot(newword, oldword) {
+                console.log(newword, oldword);
+            },
+            numbers: {
+                deep: true, //开启深度监听 默认vue不开启 
+                //不然无法监听到里面的a和b 只能监听到最外层的numbers
+                handler(newvalue, oldvalue) {
+                    console.log("number里面的值发生了变化", newvalue, oldvalue)
+                }
+            }
+        }
+    })
+</script>
+
+</html>

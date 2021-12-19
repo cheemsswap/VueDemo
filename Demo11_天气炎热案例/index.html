@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气炎热案例1</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气很{{text}}</h2>
+        <button v-on:click="fun">切换</button>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            isHot: true
+        },
+        methods: {
+            fun() {
+                this.isHot = !this.isHot
+            }
+        },
+        computed: {
+            text() {
+                return this.isHot ? "炎热" : "凉爽"
+            }
+        }
+    })
+</script>
+
+</html>
