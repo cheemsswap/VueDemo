@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Style内联样式的使用</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <style>
+        .basic{
+            width: 100px;
+            height: 100px;
+            border: 2px solid #000;
+        }
+    </style>
+
+    <div id="root">
+        <h2>方法一：使用对象的方法</h2>
+        <div class="basic" :style="arrList"></div>
+
+        <h2>方法二：使用数组对象的方法</h2>
+        <div class="basic" :style="arrListObj"></div>
+    </div>
+
+
+    <div id="root2">
+        <h2>小实验 点击随机切换颜色</h2>
+        <div class="basic" :style="bg" @click="fun"></div>
+    </div>
+</body>
+<script>
+   let vm = new Vue({
+       el:"#root",
+       data(){
+           return {
+               arrList:{
+                   background:"red",
+                   border:"10px solid #000"
+               },
+               arrListObj:[
+                   {
+                       background:'yellow'
+                   },
+                   {
+                       border:"10px solid #F00"
+                   }
+               ]
+           }
+       }
+   })
+
+   let vm2 = new Vue({
+       el:"#root2",
+       data(){
+           return {
+               key:"background",
+               val:""
+           }
+       },
+       computed:{
+           bg(){
+               return this.key+":"+this.val;
+           }
+       },
+       methods:{
+           fun(){
+               let r = Math.floor(Math.random()*256);
+               let g = Math.floor(Math.random()*256);
+               let b = Math.floor(Math.random()*256);
+               this.val = "rgb("+r+","+g+","+b+")"
+           }
+       }
+       
+   })
+
+</script>
+
+</html>
