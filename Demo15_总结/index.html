@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>总结-demo1-13</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .box{
+            width: 500px;
+            height: 100px;
+            background-color: aqua;
+            padding:10px;
+            overflow: scroll;
+        }
+        .sbox{
+            width: 450px;
+            height: 80px;
+            background-color: blue;
+        }
+        .boxbox{
+            width: 100%;
+            height: auto;
+            background-color: cornsilk;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root1">
+        <h2>Hello Vue</h2>
+        <div class="boxbox">
+        {{text}}
+        </div>
+    </div>
+    <hr>
+    <div id="root2">
+        <h2>bind  {{text}}</h2>
+        <div class="boxbox">
+            <h3>单向绑定</h3>
+            写法1：
+            <input type="text" name="" id="" v-bind:value="text"><br>
+            写法2:
+            <input type="text" name="" id="" :value="text">
+        </div>
+        <div class="boxbox">
+            <h3>双向绑定</h3>
+            写法1:
+            <input type="text" name="" id="" v-model:value="text"><br>
+            写法2:
+            <input type="text" name="" id="" v-model="text">
+        </div>
+    </div>
+    <hr>
+    <div id="root3">
+        <h2>事件绑定</h2>
+        <div class="boxbox">
+            <h3>利用绑定实现 必须要字符串</h3>
+            写法1：
+            <button v-bind:onclick="'alert(1)'">点我</button>  <br>
+            写法2：
+            <button :onclick="'alert(1)'">点我</button>
+        </div>
+        <div class="boxbox">
+            <h3>利用vue的methods实现</h3>
+            写法1：
+            <button v-on:click="fun">点我</button> <br>
+            写法2：
+            <button @click="fun">点我</button>
+        </div>
+    </div>
+    <hr>
+    <div id="root4">
+        <h2>事件绑定+修饰</h2>
+            <div class="boxbox">
+            <h3>事件修饰->关闭浏览器默认行为</h3>
+                <h5>例子1</h5>
+                未关闭行为:
+                <a href="http://www.baidu.com" @click="fun">点我</a> <br>
+                已关闭行为:
+                <a href="http://www.baidu.com" @click.prevent="fun">点我</a>
+                <h5>例子2</h5>
+                未关闭行为：
+                <form action="http://www.baidu.com" method="get">
+                    <button type="submit" @click="fun">提交表单</button>
+                </form>
+                已关闭行为:
+                <form action="http://www.baidu.com" method="get">
+                    <button type="submit" @click.prevent="fun">提交表单</button>
+                </form>
+            </div>
+
+            <div class="boxbox">
+            <h3>事件修饰->关闭冒泡</h3>
+            未关闭冒泡：
+            <div class="box" @click="fun_wai">
+            <div class="sbox" @click="fun_zhong">
+                <button  @click="fun_li">点我</button>
+            </div>
+            </div>
+            </div>
+            已关闭冒泡：
+            <div class="box" @click.stop="fun_wai">
+            <div class="sbox" @click.stop="fun_zhong">
+            <button  @click.stop="fun_li">点我</button>
+            </div>
+            </div>
+            
+            <div class="boxbox">
+                <h3>事件修饰->捕获</h3>
+                我这里为中间层添加了捕获到就执行
+                <div class="box" @click="fun_wai">
+                    <div class="sbox" @click.capture="fun_zhong">
+                        <button  @click="fun_li">点我</button>
+                    </div>
+                    </div>
+
+                我这里为中间层和最外层添加了捕获
+                <div class="box" @click.capture="fun_wai">
+                    <div class="sbox" @click.capture="fun_zhong">
+                        <button  @click="fun_li">点我</button>
+                    </div>
+                    </div>
+
+                我这里为最里层和最外层添加了捕获
+                <div class="box" @click.capture="fun_wai">
+                    <div class="sbox" @click="fun_zhong">
+                        <button  @click.capture="fun_li">点我</button>
+                    </div>
+                    </div>
+                       
+            </div>
+            <div class="boxbox">
+                <h3>事件修饰->只触发一次</h3>
+                <button @click.once="fun">点我</button>
+            </div>
+
+            <div class="boxbox">
+                <h3>事件修饰->仅本身才触发</h3>
+                <div class="box" @click.self="fun_wai">
+                <div class="sbox" @click.self="fun_zhong">
+                <button  @click.self="fun_li">点我</button>
+                </div>
+                </div>
+            </div>
+
+            <div class="boxbox">
+                <h3>异步完成回调函数 优先执行默认行为</h3>
+                <div @scroll.passive="fun_scroll" class="box">
+                    <p>1</p>
+                    <p>2</p>
+                    <p>3</p>
+                    <p>4</p>
+                    <p>5</p>
+                    <p>6</p>
+                    <p>7</p>
+                    <p>8</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                </div>
+            </div>
+    </div>
+    <hr>
+    <div id="root5">
+        <h2>键盘事件</h2>
+        <div class="boxbox">
+            <h3>输入框回车提交</h3>
+            <input type="text" name="" id="" v-model="text" @keydown.enter="fun">
+        </div>
+
+        <div class="boxbox">
+            <h3>输入框alt+enter提交</h3>
+            <input type="text" name="" id="" v-model="text" @keydown.alt.enter="fun">
+        </div>
+
+        <div class="boxbox">
+            <h3>输入框回车提交（这里用了自定义的键）</h3>
+            <input type="text" name="" id="" v-model="text" @keydown.csx="fun">
+        </div>
+    </div>
+    <hr>
+
+    <div id="root6">
+        <h2>计算属性</h2> 
+        <div class="boxbox">
+            不可修改版本：<br>
+            姓：<input type="text" name="" id="" v-model="firstName"> <br>
+            名：<input type="text" name="" id="" v-model="lastName"> <br>
+            姓名: <input type="text" name="" id="" v-model="name"> <br>
+            可修改版本: <br>
+            姓：<input type="text" name="" id="" v-model="firstName"> <br>
+            名：<input type="text" name="" id="" v-model="lastName"> <br>
+            姓名: <input type="text" name="" id="" v-model="name2">
+        </div>  
+    </div>
+
+    <div id="root7">
+        <h2>监听属性</h2>
+        <div class="boxbox">
+            姓：<input type="text" name="" id="" v-model="firstName"> <br>
+            名：<input type="text" name="" id="" v-model="lastName"> <br>
+            姓名: <input type="text" name="" id="" v-model="name"> <br> 
+        </div>
+    </div>
+
+</body>
+<script>
+    let vm1 = new Vue({
+        el:"#root1",
+        data(){
+            return {
+                text:"tt"
+            }
+        }
+    })
+
+    let vm2 = new Vue({
+        el:"#root2",
+        data(){
+            return {
+                text:"tt"
+            }
+        }
+    })
+
+    let vm3 = new Vue({
+        el:"#root3",
+        methods:{
+            fun(){
+                alert("!")
+            }
+        }
+    })
+
+    let vm4 = new Vue({
+        el:"#root4",
+        methods:{
+            fun(){
+                alert("!")
+            },
+            fun_wai(){
+                alert("我是最外层")
+            },
+            fun_zhong(){
+                alert("我是中间层")
+            },
+            fun_li(){
+                alert("我是最里层")
+            },
+            fun_scroll(){
+                for(let i=0;i<10000;i++)
+                console.log(i);
+            }
+        }
+    })
+
+
+    //自定义csx为回车
+    Vue.config.keyCodes.csx = 13
+    let vm5 = new Vue({
+        el:"#root5",
+        data(){
+            return {
+                text:""
+            }
+        },
+        methods:{
+            fun(){
+                alert(this.text)
+            }
+        }
+    })
+
+    let vm6 =new Vue({
+        el:"#root6",
+        data(){
+            return {
+                firstName:"",
+                lastName:""
+            }
+        },
+        computed:{
+            name(){
+                return this.firstName+'-'+this.lastName;
+            },
+            name2:{
+                set(val){
+                    this.firstName = val.split("-")[0]
+                    this.lastName = val.split("-")[1]
+                },
+                get(){
+                    return this.firstName+'-'+this.lastName;
+                }
+            }
+        }
+    })
+
+    let vm7 = new Vue({
+        el:"#root7",
+        data(){
+            return {
+                firstName:"",
+                lastName:"",
+                name:""
+            }
+        },
+        //监听比计算属性多了可以添加异步的功能 但是能用计算属性则用计算属性实现
+        watch:{
+            firstName:{
+                deep:true,//深度监听
+                handler(val){
+                    this.firstName = val;
+                    this.name = val +'-'+ this.lastName;
+                }
+            },
+            lastName(val){
+                this.lastName = val;
+                this.name = this.firstName + '-'+ val;
+            },
+            name:{
+                immediate: true,//初始化会进行一次监听
+                handler(val){
+                    if(val==''){
+                        this.name = "-";
+                    }else{
+                        this.firstName = val.split('-')[0]
+                        this.lastName = val.split('-')[1]
+                    }
+                }
+            }
+
+        }
+    })
+
+
+
+</script>
+
+</html>
