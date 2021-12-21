@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 利用键盘事件实现查找功能</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <ul>
+            <input type="text" name="" id="" @keyup="fun">
+            <li v-for="u of persions" :key="u.uid">
+                {{u.uid}}--{{u.uname}}--{{u.uage}}--{{u.ugender}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data() {
+            return {
+                persionsdata: [
+                    { uid: "001", uname: "马冬梅", uage: 19, ugender: '女' },
+                    { uid: "002", uname: "周冬雨", uage: 20, ugender: '女' },
+                    { uid: "003", uname: "周杰伦", uage: 21, ugender: '男' },
+                    { uid: "004", uname: "温兆伦", uage: 22, ugender: '男' },
+                ],
+                persions: [],
+            }
+        },
+        methods: {
+            fun(event) {
+                this.persions = []
+                for (p of this.persionsdata) {
+                    if (p.uname.indexOf(event.target.value) !== -1)
+                        this.persions.push(p)
+                }
+            }
+        }
+
+    })
+</script>
+
+</html>

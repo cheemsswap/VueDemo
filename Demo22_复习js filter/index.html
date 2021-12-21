@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复习js filter</title>
+</head>
+
+<body>
+</body>
+<script>
+    let persionsdata = [
+        { uid: "001", uname: "马冬梅", uage: 19, ugender: '女' },
+        { uid: "002", uname: "周冬雨", uage: 20, ugender: '女' },
+        { uid: "003", uname: "周杰伦", uage: 21, ugender: '男' },
+        { uid: "004", uname: "温兆伦", uage: 22, ugender: '男' },
+    ];
+    let persions = []
+    //过滤器 filter的使用
+    persions = persionsdata.filter(() => {
+        return true;
+    })
+    console.log(persions);
+
+    //
+    persions = persionsdata.filter((p) => {
+        return p.uname === "马冬梅"
+    })
+    console.log(persions);
+</script>
+
+</html>
