@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js sort 复习</title>
+</head>
+
+<body>
+    sort 排序会破坏原数组 记得拷贝一份再操作
+</body>
+<script>
+    let persionsdata = [
+        { uid: "001", uname: "马冬梅", uage: 24, ugender: '女' },
+        { uid: "002", uname: "周冬雨", uage: 20, ugender: '女' },
+        { uid: "003", uname: "周杰伦", uage: 18, ugender: '男' },
+        { uid: "004", uname: "温兆伦", uage: 22, ugender: '男' },
+    ];
+    let persions = [];
+
+    console.log(persionsdata);
+    console.log(persions);
+
+    persions = persionsdata.sort(function (p, q) {
+        return p.uage - q.uage
+    });
+    console.log(persionsdata);
+    console.log(persions);
+
+    // let persions2 = persionsdata.sort((p, q) => {
+    //     return (p.uage - q.uage)
+    // });
+    // console.log(persions2);
+
+</script>
+
+</html>

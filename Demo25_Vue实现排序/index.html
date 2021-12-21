@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 利用计算属性实现查找+年龄排序的功能</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <ul>
+            <input type="text" name="" id="" v-model="searchtext">
+            <button @click="sortup">点击年龄升序</button>
+            <button @click="sortdown">点击年龄降序</button>
+            <button @click="restore">点击年龄原序</button>
+            <li v-for="u of persions" :key="u.uid">
+                {{u.uid}}--{{u.uname}}--{{u.uage}}--{{u.ugender}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data() {
+            return {
+                searchtext: "",
+                i: 0,//使用什么排序 0代表原序  1代表升序  2代表降序
+                persionsdata: [
+                    { uid: "001", uname: "马冬梅", uage: 20, ugender: '女' },
+                    { uid: "002", uname: "周冬雨", uage: 19, ugender: '女' },
+                    { uid: "003", uname: "周杰伦", uage: 21, ugender: '男' },
+                    { uid: "004", uname: "温兆伦", uage: 18, ugender: '男' },
+                ]
+            }
+        },
+        computed: {
+            persions() {
+                let newarr = this.persionsdata.filter((p) => {
+                    return p.uname.indexOf(this.searchtext) != -1
+                });
+                if (this.i) {
+                    newarr.sort((q, p) => this.i === 1 ? q.uage - p.uage : p.uage - q.uage)
+                }
+                return newarr;
+            }
+        },
+        methods: {
+            sortup() {
+                this.i = 1
+            },
+            sortdown() {
+                this.i = 2
+            },
+            restore() {
+                this.i = 0
+            }
+        }
+
+    })
+</script>
+
+</html>
