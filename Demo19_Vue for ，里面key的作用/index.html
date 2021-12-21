@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue for 里面key的作用</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        Vue key的作用是为了进行diff算法的时候 虚拟dom匹配的时候
+        如果这2个虚拟dom有相同的内容（不会去看真实dom的内容） 则不会对这相同部分进行刷新
+
+        ！默认 不写key ，Vue会采用index作为key使用
+
+        <h2>不写key或者使用index作为key的后果</h2>
+        <ul>
+            <button @click="fun">点我添加赵六</button>
+            <li v-for="u in studentArrObj">
+                {{u.uid}}---{{u.uname}}--{{u.uage}}
+                <input type="text" name="" id="">
+            </li>
+        </ul>
+
+        <h2>写上唯一的key</h2>
+        <ul>
+            <button @click="fun">点我添加赵六</button>
+            <li v-for="u in studentArrObj" :key="u.uid">
+                {{u.uid}}---{{u.uname}}--{{u.uage}}
+                <input type="text" name="" id="">
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data() {
+            return {
+                studentArrObj: [
+                    { uid: "001", uname: "张三", uage: 18 },
+                    { uid: "002", uname: "李四", uage: 19 },
+                    { uid: "003", uname: "王五", uage: 20 }
+                ],
+                p: {
+                    uid: "004",
+                    uname: "赵六",
+                    uage: 21
+                }
+            }
+        },
+        methods: {
+            fun() {
+                this.studentArrObj.unshift(this.p)
+            }
+        }
+    })
+</script>
+
+</html>
