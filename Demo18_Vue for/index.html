@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 循环</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>学生信息</h2>
+        <h3>数组形式：</h3>
+        <ul>
+            <li v-for="(u,i) in studentArr">
+                {{u}}--{{i}}
+            </li>
+        </ul>
+
+        <h3>对象形式：</h3>
+        <ul>
+            <li v-for="(val,k,i) in studentObj">
+                {{k}}--{{val}}--{{i}}
+            </li>
+        </ul>
+
+        <h3>数组对象形式：</h3>
+        <ul>
+            <li v-for="(val,i) in studentArrObj">
+                {{val.uid}}--{{val.uname}}--{{val.uage}}--{{i}}
+            </li>
+        </ul>
+
+        <h3>遍历字符串</h3>
+        <ul>
+            <li v-for="(k,i) in 'abcd'">
+                {{k}}---{{i}}
+            </li>
+        </ul>
+
+        <h3>遍历数字</h3>
+        <ul>
+            <li v-for="(k,i) in 5">
+                {{k}}---{{i}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data() {
+            return {
+                studentArr: ['张三', '李四', '王五'],
+                studentObj: {
+                    uid: "001",
+                    uname: "张三",
+                    uage: 18
+                },
+                studentArrObj: [
+                    { uid: '001', uname: '张三', uage: 18 },
+                    { uid: '002', uname: '李四', uage: 19 },
+                    { uid: '003', uname: '王五', uage: 20 },
+                ]
+            }
+        }
+    })
+</script>
+
+</html>
