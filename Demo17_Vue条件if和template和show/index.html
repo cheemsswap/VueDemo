@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 条件if和template和show的使用</title>
+    <script src="js/vue.js"></script>
+</head>
+<style>
+    .basic {
+        width: 100%;
+        height: auto;
+        border: 2px solid #000;
+        margin-top: 10px;
+    }
+
+    .basic>ul>li {
+        list-style: none;
+        background-color: aquamarine;
+    }
+</style>
+
+<body>
+    <div id="root">
+        <div class="basic">
+            <h2>v-show的使用</h2>
+            <div v-show="abc === 1">1</div>
+            <div v-show="abc === 2">2</div>
+            <div v-show="abc === 3">3</div>
+            <div v-show="abc === 4">4</div>
+            <div v-show="abc === 5">5</div>
+        </div>
+
+        <div class="basic">
+            <h2>v-if的使用</h2>
+            <div v-if="abc === 1">1</div>
+            <div v-if="abc === 5">5 !</div>
+            <div v-if="abc === 5">5 @</div>
+            <div v-if="abc === 3">3</div>
+            <div v-if="abc === 4">4</div>
+        </div>
+
+        <div class="basic">
+            <h2>v-if-else的使用</h2>
+            <div v-if="abc === 1">1</div>
+            <div v-else-if="abc === 5">5 !</div>
+            <div v-else-if="abc === 5">5 @</div>
+            <div v-else-if="abc === 3">3</div>
+            <div v-else-if="abc === 3">4</div>
+        </div>
+
+        <div class="basic">
+            <h2>v-else的使用</h2>
+            <div v-if="abc === 1">1</div>
+            <div v-else-if="abc === 2">2</div>
+            <div v-else-if="abc === 3">3</div>
+            <div v-else-if="abc === 4">4</div>
+            <div v-else-if="abc === 4">4</div>
+            <div v-else>else</div>
+        </div>
+
+        <div class="basic">
+            <h2>template和if的使用-未使用template 因为修改了结构css出现了问题</h2>
+            <ul>
+                <div v-if="abc === 5">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </div>
+            </ul>
+        </div>
+        <div class="basic">
+            <h2>template和if的使用-已使用template</h2>
+            <ul>
+                <template v-if="abc === 5">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <hr>
+    <hr>
+    <div id="root2">
+        <h2>小案例1</h2>
+        <button @click="fun">点我隐藏或者显示元素</button>
+        <div class="basic" v-show="s">我在这里</div>
+    </div>
+    <div id="root3">
+        <h2>小案例2</h2>
+        <button @click="fun">点我移除或者添加元素</button>
+        <div class="basic" v-if="s">我在这里</div>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: "#root",
+        data() {
+            return {
+                text1: "aaaaaaa",
+                text2: "bbbbbbb",
+                text3: "ccccccc",
+                abc: 5
+            }
+        }
+    })
+    let vm2 = new Vue({
+        el: "#root2",
+        data() {
+            return {
+                s: true
+            }
+        },
+        methods: {
+            fun() {
+                this.s = !this.s
+            }
+        }
+    })
+    let vm3 = new Vue({
+        el: "#root3",
+        data() {
+            return {
+                s: true
+            }
+        },
+        methods: {
+            fun() {
+                this.s = !this.s
+            }
+        }
+    })
+</script>
+
+</html>
