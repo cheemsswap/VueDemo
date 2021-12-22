@@ -30,26 +30,32 @@
         <input type="text" name="" id="" @keyup.enter="addfirend" v-model="afirend">
         <button @click="addfirend">在列表末位添加一个朋友</button>
         <br><br>
-        <button>爱好 过滤掉 抽烟 和 喝酒</button>
+        姓名：<input type="text" name="" id="" v-model="afirendagename">
+        年龄：<input type="text" name="" id="" v-model="afirendage">
+        <button @click="updatefirendage">为指定name的朋友增加或修改年龄</button>
         <br><br>
-        <button>朋友们进行年龄的升序</button>
-        <button>朋友们进行年龄的降序</button>
-        <button>朋友们默认顺序</button>
+        <button @click="hobbyflag=!hobbyflag">爱好 过滤/取消过滤 抽烟 和 喝酒</button>
         <br><br>
-        <button>为朋友们添加一个性别为男的属性 (仅点击一次)</button>
+        <button @click="firendsflag=1">朋友们进行年龄的升序</button>
+        <button @click="firendsflag=2">朋友们进行年龄的降序</button>
+        <button @click="firendsflag=0">朋友们默认顺序</button>
+        <br><br>
+        <button @click="addallfirendsex">为所有朋友们添加一个性别为男的属性 (仅点击一次)</button>
         <h3 v-for="(value,key) of student" :key="value">
             {{key}} : {{value}}
         </h3>
         <h3>爱好：</h3>
         <ul>
-            <li v-for="(value,index) of hobby" :key="value">
+            <li v-for="(value,index) of hobbys" :key="value">
                 {{value}}
             </li>
         </ul>
         <h3>朋友们</h3>
         <ul>
-            <li v-for="f of firends" :key="f.name">
-                {{f.name}}--{{f.age}}
+            <li v-for="f of firendss" :key="f.name">
+                <template v-for="(ff,index) of f">
+                    {{ff}}
+                </template>
             </li>
         </ul>
     </div>
@@ -62,6 +68,11 @@
                 uage: "",
                 ufirendname: "",
                 ahobby: "",
+                afirend: "",
+                afirendagename: "",
+                afirendage: "",
+                hobbyflag: false,
+                firendsflag: 0, //0不排序 1升序 2降序
                 student: {
                     name: "jary",
                     age: 18
@@ -98,12 +109,55 @@
                 this.ahobby = ''
             },
             addfirend() {
-
+                this.firends.push({ name: this.afirend })
+                this.afirend = ""
+            },
+            updatefirendage() {
+                for (const key in this.firends) {
+                    if (this.firends[key].name == this.afirendagename) {
+                        if (this.firends[key].age !== undefined) {
+                            this.firends[key].age = this.afirendage;
+                        }
+                        else {
+                            this.$set(this.firends[key], 'age', this.afirendage);
+                        }
+                    }
+                }
+                this.afirendagename = ""
+                this.afirendage = ""
+            },
+            addallfirendsex() {
+                this.firends.forEach(element => {
+                    this.$set(element, 'sex', '男')
+                });
             }
+        },
+        computed: {
+            hobbys() {
+                if (this.hobbyflag) {
+                    return this.hobby.filter((e) => {
+                        return !(e === "抽烟" || e === "喝酒")
+                    })
+                }
+                else {
+                    return this.hobby
+                }
 
-
+            },
+            firendss() {
+                if (this.firendsflag) {
+                    const firend = [...this.firends];
+                    return firend.sort((q, p) => {
+                        return this.firendsflag === 1 ? q.age - p.age : p.age - q.age
+                    })
+                }
+                else {
+                    return this.firends
+                }
+            }
         }
     })
+
 
 </script>
 
