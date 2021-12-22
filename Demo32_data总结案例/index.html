@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data总结案例</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>学生信息</h2> <br><br>
+        <button @click="addage">年龄+1岁</button>
+        <br><br>
+        <button @click.once="addsex">添加性别属性（仅点击一次）</button>
+        <br><br>
+        <button @click="updatename">修改姓名为 jary 或者 tom ，来回横跳</button>
+        <br><br>
+        <input type="text" name="" id="" @keyup.enter="updateage" v-model="uage">
+        <button @click="updateage">自定义年龄</button>
+        <br><br>
+        <input type="text" name="" id="" @keyup.enter="updatefirendname" v-model="ufirendname">
+        <button @click="updatefirendname">修改第一个好朋友的名字</button>
+        <br><br>
+        <input type="text" name="" id="" @keyup.enter="addhobby" v-model="ahobby">
+        <button @click="addhobby">在列表首位添加一个爱好</button>
+        <br><br>
+        <input type="text" name="" id="" @keyup.enter="addfirend" v-model="afirend">
+        <button @click="addfirend">在列表末位添加一个朋友</button>
+        <br><br>
+        <button>爱好 过滤掉 抽烟 和 喝酒</button>
+        <br><br>
+        <button>朋友们进行年龄的升序</button>
+        <button>朋友们进行年龄的降序</button>
+        <button>朋友们默认顺序</button>
+        <br><br>
+        <button>为朋友们添加一个性别为男的属性 (仅点击一次)</button>
+        <h3 v-for="(value,key) of student" :key="value">
+            {{key}} : {{value}}
+        </h3>
+        <h3>爱好：</h3>
+        <ul>
+            <li v-for="(value,index) of hobby" :key="value">
+                {{value}}
+            </li>
+        </ul>
+        <h3>朋友们</h3>
+        <ul>
+            <li v-for="f of firends" :key="f.name">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: "#root",
+        data() {
+            return {
+                uage: "",
+                ufirendname: "",
+                ahobby: "",
+                student: {
+                    name: "jary",
+                    age: 18
+                },
+                hobby: ['抽烟', '喝酒', '写代码'],
+                firends: [
+                    { name: "aaa", age: 25 },
+                    { name: "bbb", age: 20 },
+                    { name: "ccc", age: 25 },
+                    { name: "ddd", age: 30 }
+                ]
+            }
+        },
+        methods: {
+            addage() {
+                this.student.age++
+            },
+            addsex() {
+                this.$set(this.student, "sex", "男")
+            },
+            updatename() {
+                this.student.name = this.student.name === "jary" ? "tom" : "jary";
+            },
+            updateage() {
+                this.student.age = this.uage;
+                this.uage = ''
+            },
+            updatefirendname() {
+                this.firends[0].name = this.ufirendname
+                this.ufirendname = ''
+            },
+            addhobby() {
+                this.hobby.unshift(this.ahobby)
+                this.ahobby = ''
+            },
+            addfirend() {
+
+            }
+
+
+        }
+    })
+
+</script>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data数组添加数据</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        学号：<input type="text" name="" id="" v-model="newstudent.id"> <br>
+        姓名: <input type="text" name="" id="" v-model="newstudent.name"> <br>
+        年龄: <input type="text" name="" id="" v-model="newstudent.age"> <br>
+        <button @click="fun1">点击 添加一个新学生</button>
+        <ul>
+            <li v-for="s of students" :key="s.id">
+                {{s.id}}---{{s.name}}---{{s.age}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let vm1 = new Vue({
+        el: "#root",
+        data() {
+            return {
+                newstudent: { id: "", name: "", age: "" },
+                students: [
+                    { id: "001", name: "张三", age: 19 },
+                    { id: "002", name: "李四", age: 20 },
+                    { id: "003", name: "王五", age: 21 },
+                ]
+            }
+        },
+        methods: {
+            fun1() {
+                let students = { id: this.newstudent.id, name: this.newstudent.name, age: this.newstudent.age };
+                this.students.push(students)
+            }
+        }
+    })
+</script>
+
+</html>
