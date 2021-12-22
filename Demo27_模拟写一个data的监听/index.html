@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟写一个data的监听1</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    let s = { id: "001", name: "张三", age: 19 }
+    let student = { id: s.id, name: s.name, age: s.age }
+    Object.defineProperty(student, 'name', {
+        set(val) {
+            s.name = val
+        },
+        get() {
+            return s.name
+        }
+    })
+
+</script>
+
+</html>

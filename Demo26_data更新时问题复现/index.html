@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data更新时候问题复现</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <button @click="fun1">点击修改张三的信息 改名改年龄 方法一</button>
+        <button @click="fun2">点击修改张三的信息 改名改年龄 方法二</button>
+        <ul>
+            <li v-for="s of students" :key="s.id">
+                {{s.id}}---{{s.name}}---{{s.age}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let vm1 = new Vue({
+        el: "#root",
+        data() {
+            return {
+                students: [
+                    { id: "001", name: "张三", age: 19 },
+                    { id: "002", name: "李四", age: 20 },
+                    { id: "003", name: "王五", age: 21 },
+                ]
+            }
+        },
+        methods: {
+            fun1() {
+                this.students[0].name = "张师傅"
+                this.students[0].age = 50
+                alert("方法成功的")
+            },
+            fun2() {
+                this.students[0] = { id: "001", name: "张师傅", age: 50 }
+                alert("方法失败了 为什么呢 ？")
+            }
+        }
+    })
+</script>
+
+</html>
