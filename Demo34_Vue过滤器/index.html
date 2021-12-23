@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 过滤器</title>
+    <script src="js/vue.js"></script>
+    <script src="js/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        完整内容：{{text}} <br>
+        使用过滤器后的内容:{{text | substr04}} <br>
+        时间未格式化的:{{dates}} <br>
+        时间经过过滤器格式化的:{{dates | timeFormater("YYYY-MM-DD HH:mm:ss")}}
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data() {
+            return {
+                text: "hellowrod,vue",
+                dates: dayjs()
+            }
+        },
+        filters: {
+            substr04(val) {
+                return val.substring(0, 4)
+            },
+            timeFormater(val, key) {
+                return val.format(key)
+            }
+        }
+    })
+</script>
+
+</html>
