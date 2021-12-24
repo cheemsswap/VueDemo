@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 常用指令</title>
+    <script src="js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="root">
+        <!-- v-text 不会解析html标签 -->
+        <div v-text="text"></div>
+        <div v-text="htmltext"></div>
+        <hr>
+
+        <!-- v-html 会解析html标签 慎用 -->
+        <div v-html="htmltext"></div>
+        <hr>
+
+        <!-- v-cloak 在vue启用后都会移除  -->
+        <style v-pre>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+        <div v-cloak>{{text}}</div>
+        <hr>
+        <!-- v-once Vue只会初次渲染。之后再也不会渲染 -->
+        <div v-once>{{text}}</div>
+        <input type="text" v-model="text">
+
+        <!-- v-pre Vue不会进行渲染 -->
+        <div v-pre :bind="hahahah">{{text}}</div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data() {
+            return {
+                text: "hello!",
+                htmltext: "<h2>嘿嘿嘿</h2>"
+            }
+        }
+    })
+</script>
+
+</html>
