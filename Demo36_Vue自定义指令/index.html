@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 自定义指令</title>
+    <script src="js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="root">
+        <button @click="n++">点我n+1</button>
+        <input v-bigs='n' type="text" />
+        <input v-big-focus='n' type="text">
+    </div>
+</body>
+<script>
+
+    //全局自定义指令
+    Vue.directive('bigs', (element, bind) => {
+        element.value = bind.value * 10
+        //在自定义函数里面 this指向不是Vue 而是window
+        console.log(this);
+    })
+
+    new Vue({
+        el: "#root",
+        data() {
+            return {
+                n: 1
+            }
+        },
+        //局部自定义指令
+        directives: {
+            // 普通函数 仅能在2种情况下执行 一个是初次渲染前 ，一个是再次渲染的时候执行
+            big(element, bind) {
+                element.value = bind.value * 10
+                //在自定义函数里面 this指向不是Vue 而是window
+                console.log(this);
+            },
+            'big-focus': {
+                //初次渲染前
+                bind(element, bind) {
+                    element.value = bind.value * 10
+                },
+                //初次渲染后执行
+                inserted(element, bind) {
+                    element.focus()
+                },
+                //再次渲染执行
+                update(element, bind) {
+                    element.value = bind.value * 10
+                    element.focus()
+                }
+            }
+        }
+
+    })
+</script>
+
+</html>
