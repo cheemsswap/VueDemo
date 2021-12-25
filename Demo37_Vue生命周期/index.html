@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 生命周期</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <img src="https://cn.vuejs.org/images/lifecycle.png" alt="" srcset="" width="400px" height="">
+    <div id="root">
+        <h2 :style="{opacity}">大家好 {{n}}</h2>
+        <button @click="addn">点我n+1</button>
+        <button @click="vuedestroy">点我进行销毁</button>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: "#root",
+        data() {
+            return {
+                opacity: 1,
+                n: 1
+            }
+        },
+        methods: {
+            addn() {
+                console.log("add");
+                this.n++
+            },
+            vuedestroy() {
+                this.$destroy()
+            }
+        },
+        beforeCreate() {
+            console.log("beforeCreate 我还没有做好data和数据绑定操作");
+        },
+        created() {
+            console.log("Create 我刚刚做好data和数据绑定操作，但是没有生成虚拟dom");
+        },
+        beforeMount() {
+            console.log("beforeMount 未挂载前");
+        },
+        mounted() {
+            console.log("挂载后");
+            this.haha = setInterval(() => {
+                this.opacity -= 0.01
+                if (this.opacity <= 0) this.opacity = 1
+            }, 13)
+        },
+        beforeUpdate() {
+            console.log("更新前 但是我的数据已经准备就绪了", this.n);
+        },
+        updated() {
+            console.log("更新后");
+        },
+        beforeDestroy() {
+            console.log("销毁前");
+            clearInterval(this.haha)
+        },
+        destroyed() {
+            console.log("销毁后");
+        }
+
+    })
+
+</script>
+
+</html>
