@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 组件的嵌套</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <fatuer></fatuer>
+    </div>
+</body>
+<script>
+
+    let s1 = Vue.extend({
+        template: `
+        <div>{{text}}</div>
+        `,
+        data() {
+            return {
+                text: "我是一号"
+            }
+        }
+    })
+    let s2 = Vue.extend({
+        template: `
+        <div>{{text}}</div>
+        `,
+        data() {
+            return {
+                text: "我是二号"
+            }
+        }
+    })
+
+
+    let fatuer = Vue.extend({
+        template: `
+        <div>
+            <s1></s1>
+            <s2></s2>
+        </div>
+        `,
+        components: {
+            s1,
+            s2
+        }
+    })
+
+    let vm = new Vue({
+        name: "app",
+        el: "#root",
+        data() {
+            return {
+
+            }
+        },
+        components: {
+            fatuer
+        }
+    })
+
+</script>
+
+</html>
