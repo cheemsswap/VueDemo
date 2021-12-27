@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 和 VueConponent之间的关系</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <fatuer></fatuer>
+    </div>
+</body>
+<script>
+
+    const vc = Vue.extend({})
+    console.log(vc.prototype);
+    console.log(Vue.prototype);
+    console.log(vc.prototype.__proto__ == Vue.prototype);
+    const vm = new Vue({})
+
+
+    function animal() {
+        this.eat = function () {
+            console.log("我会吃东西");
+        }
+    }
+    let c = new animal();
+    console.log(c);
+    c.eat()
+
+    function mouse() {
+        this.work = function () {
+            console.log("我会打洞 这是我的工作");
+        }
+    }
+    let m = new mouse();
+    console.log(m);
+    m.work();
+
+    mouse.prototype = new animal()
+    let m2 = new mouse();
+    console.log(m2);
+    m2.work()
+    m2.eat()
+    let vcs = new vc()
+    console.log(vcs.__proto__.__proto__ == vm.__proto__);
+    console.log(vm.__proto__.__proto__ == Object.prototype);
+
+
+</script>
+
+</html>

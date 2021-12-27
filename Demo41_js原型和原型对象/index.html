@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js原型</title>
+</head>
+
+<body>
+    <script>
+
+        function animal(name, age) {
+            this.name = name
+            this.age = age
+            this.sleep = function () {
+                console.log("我是", this.name, "会睡觉");
+            }
+        }
+
+        function people(name, age, work) {
+            this.work = work
+            this.showwork = function () {
+                console.log("我是", this.name, "工作是", this.work);
+            }
+            // animal.call(this, name, age) //手动调用原型对象构造函数
+        }
+        people.prototype = new animal()
+
+        let a = new animal("小猪", 2)
+        a.sleep()
+
+        let p = new people("张三", 22, "程序员")
+        p.sleep()
+        p.showwork()
+
+
+    </script>
+
+</body>
+
+</html>
