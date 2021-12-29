@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue render</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+</body>
+<script>
+    //1.0 声明
+    let hello = Vue.extend({
+        template: `
+        <div>
+        <h2>{{text}}</h2>
+        </div>
+        `,
+        data() {
+            return {
+                text: "hello,vue"
+            }
+        }
+    })
+    //2.0全局注册
+    Vue.component('hhh', hello);
+
+    let student = Vue.extend({
+        name: "st", //仅仅在开发者工具中显示该名字
+        template: `
+        <div>
+        <h2>{{name}}--{{age}}</h2>
+        </div>
+        `,
+        data() {
+            return {
+                name: "张三",
+                age: 15
+            }
+        }
+    })
+    let school = Vue.extend({
+        template: `
+        <div>
+        <h2>{{name}}---{{address}}</h2>
+        </div>
+        `,
+        data() {
+            return {
+                name: "家里蹲大学",
+                address: "家里"
+            }
+        }
+    })
+
+    let vm = new Vue({
+        el: "#root",
+        render(e) {
+            return e(student)
+        }
+    })
+
+</script>
+
+</html>

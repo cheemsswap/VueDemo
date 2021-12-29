@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue render测试2</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <fatuer></fatuer>
+    </div>
+</body>
+<script>
+
+    let s1 = Vue.extend({
+        name: "s1",
+        template: `
+        <div>{{text}}</div>
+        `,
+        data() {
+            return {
+                text: "我是一号"
+            }
+        }
+    })
+
+    let fatuer = Vue.extend({
+        // render: h => h(s1), 如果用这个渲染的话 子没有name 则再vue开发者下面是随机的名字
+        name: "Fatuer",
+        template: "<s1/>",
+        components: {
+            s1
+        }
+    })
+
+    let vm = new Vue({
+        name: "app",
+        el: "#root",
+        data() {
+            return {
+
+            }
+        },
+        components: {
+            fatuer
+        }
+    })
+
+</script>
+
+</html>
