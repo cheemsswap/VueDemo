@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+</style>
+
+<body>
+    <ul>
+        <li>id:<input type="text" placeholder="输入id" id="pid"></li>
+        <li>name: <input type="text" placeholder="输入姓名" id="pname"> </li>
+        <li>age: <input type="number" id="page"></li>
+    </ul>
+    <button onclick="set()">点我缓存(更新)数据</button>
+    <button onclick="del()">点我删除信息</button>
+    <button onclick="get()">点我获取数据</button>
+</body>
+
+<script>
+    function set() {
+        let id = document.getElementById("pid").value
+        let name = document.getElementById("pname").value
+        let age = document.getElementById("page").value
+        let person = {
+            id,
+            name,
+            age
+        }
+        localStorage.setItem("person", JSON.stringify(person))
+    }
+    function del() {
+        //移除单个
+        //localStorage.removeItem("person")
+
+        //移除所有的
+        localStorage.clear()
+    }
+    function get() {
+        let personStr = localStorage.getItem("person")
+        console.log(JSON.parse(personStr));
+    }
+</script>
+
+</html>
