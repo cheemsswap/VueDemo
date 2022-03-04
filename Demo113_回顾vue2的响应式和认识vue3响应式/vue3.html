@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue3响应式原理</title>
+</head>
+
+<body>
+    <button id="a1">点我输出姓名 控制台</button>
+    <br>
+    <input type="text" name="" id="b1"> <button id="a2">修改/新增姓名</button>
+    <br>
+    <button id="a3">删除姓名</button>
+</body>
+<script>
+    let name = "害怕"
+    let age = 18
+    let job = '前端开发工程师'
+    let person = new Proxy({
+        name,
+        age,
+        job
+    },
+        {
+            get: (val, name) => {
+                console.log("发生获取参数了", name + "的参数是" + val.name);
+                return Reflect.get(val, name)
+            },
+            set: (val, name, newval) => {
+                console.log("发生修改参数了", name + "修改成" + newval);
+                return Reflect.set(val, name, newval)
+            },
+            deleteProperty(val, name) {
+                console.log("发生删除参数了", name);
+                return Reflect.deleteProperty(val, name)
+            },
+        })
+    document.getElementById("a1").addEventListener("click", () => {
+        console.log(person.name);
+    })
+
+    document.getElementById("a2").addEventListener("click", () => {
+        person.name = document.getElementById("b1").value
+        document.getElementById("b1").value = ""
+    })
+    document.getElementById("a3").addEventListener("click", () => {
+        delete person.name
+    })
+
+</script>
+
+</html>
